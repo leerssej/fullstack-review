@@ -1,6 +1,12 @@
 const express = require('express');
 let app = express();
 
+// log activities
+app.use(function (req, res, next) {
+  console.log('Request Type, Url:', req.method, req.url)
+  next();
+})
+
 // serve out the standard webpage
 app.use(express.static(__dirname + '/../client/dist'));
 
