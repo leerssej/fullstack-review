@@ -1,6 +1,7 @@
 const express = require('express');
 let app = express();
 
+// serve out the standard webpage
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
