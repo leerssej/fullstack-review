@@ -1,6 +1,5 @@
 const path = require('path');
 const example_data = require(path.join(__dirname, '../data.json'));
-console.log("trial 1");
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
@@ -90,12 +89,15 @@ const saveRecords = (newRecordSet) => {
 }
 // saveRecords(example_data);
 
-const getTop25 = () => {
+const getTop25 = (callback) => {
   Repo
     .find({})
     .limit(25)
     .sort({stargazers_count: -1})
-    .exec((e,s) => console.log(e,s))
+    .exec(callback)
 }
 // console.log(getTop25());
-module.exports.saveRecords = saveRecords;
+module.exports = {
+  saveRecords,
+  getTop25,
+};
