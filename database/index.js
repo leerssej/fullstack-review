@@ -27,16 +27,14 @@ let Repo = mongoose.model('Repo', repoSchema);
 //   }
 // }
 
-// module.exports.save = save;
-
 // let newRecord = new Repo({
-//   id: 345,
-//   name: "testName",
-//   full_name: "testFN",
-//   owner_login: "testOLogin",
-//   owner_html_url: "testHtml",
-//   owner_avatar_url: "testAvatar",
-//   stargazers_count:  47,
+  //   id: 345,
+  //   name: "testName",
+  //   full_name: "testFN",
+  //   owner_login: "testOLogin",
+  //   owner_html_url: "testHtml",
+  //   owner_avatar_url: "testAvatar",
+  //   stargazers_count:  47,
 //   watchers_count: 124,
 //   forks_count:  256,
 // })
@@ -55,18 +53,18 @@ let Repo = mongoose.model('Repo', repoSchema);
 
 // // simple test
 // newRecord.save((err, newRecord) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(newRecord);
-//   }
+  //   if (err) {
+    //     console.log(err);
+    //   } else {
+      //     console.log(newRecord);
+      //   }
 // });
 
 // let record = example_data[1];
 
 let newRecordSet = example_data;
 
-const saveMap = (newRecordSet) => {
+const saveRecords = (newRecordSet) => {
   newRecordSet.forEach(record => {
     console.log(record);
     let newRecord = new Repo({
@@ -80,7 +78,7 @@ const saveMap = (newRecordSet) => {
       watchers_count: record.watchers_count,
       forks_count: record.forks_count,
     });
-
+    
     newRecord.save((err, newRecord) => {
       if (err) {
         console.log(err);
@@ -90,5 +88,14 @@ const saveMap = (newRecordSet) => {
     });
   });
 }
+// saveRecords(example_data);
 
-saveMap(example_data);
+const getTop25 = () => {
+  Repo
+    .find({})
+    .limit(25)
+    .sort({stargazers_count: -1})
+    .exec((e,s) => console.log(e,s))
+}
+// console.log(getTop25());
+module.exports.saveRecords = saveRecords;

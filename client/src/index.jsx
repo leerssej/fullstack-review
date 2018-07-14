@@ -8,14 +8,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
     }
-
   }
 
   search (term) {
-    console.log(`${term} was searched`);
-    // TODO
+    console.log(`${term} was entered`);
+    $.post('/repos', term, (e,s) => {
+      this.setState({
+        repos: s,
+      })
+    });
+  }
+
+  componentDidMount() {
+    this.state.repos = search()
   }
 
   render () {
