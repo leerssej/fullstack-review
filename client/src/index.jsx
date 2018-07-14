@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import axios from 'axios';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
@@ -12,17 +12,16 @@ class App extends React.Component {
     }
   }
 
-  search (term) {
+  search(term) {
     console.log(`${term} was entered`);
-    $.post('/repos', term, (e,s) => {
-      this.setState({
-        repos: s,
-      })
-    });
+    axios.post('./repos', {term})
+      .then(results => this.setState({
+        repos: results.data }))
+      .catch(err => console.log('error fetching repos for this name'));
   }
 
   componentDidMount() {
-    this.state.repos = search()
+    this.state.repos = this.search()
   }
 
   render () {
