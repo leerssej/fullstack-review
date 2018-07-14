@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
-  id: Number,
+  id: { type: Number, unique: true },
   name: String,
   full_name: String,
   owner_login: String,
@@ -65,7 +65,6 @@ let newRecordSet = example_data;
 
 const saveRecords = (newRecordSet) => {
   newRecordSet.forEach(record => {
-    console.log(record);
     let newRecord = new Repo({
       id: record.id,
       name: record.name,
