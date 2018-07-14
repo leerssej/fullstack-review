@@ -1,9 +1,10 @@
 const path = require('path');
 const express = require('express');
+const fetch = require('node-fetch');
 const $ = require('jquery');
 let app = express();
-const db = require(path.join(__dirname, '../database/index.js'))
-// console.log(db)
+const db = require(path.join(__dirname, '../database/index.js'));
+console.log('------------------start---------------------------');
 // log activities
 app.use(function (req, res, next) {
   console.log('Request Type, Url:', req.method, req.url)
@@ -15,6 +16,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!
+  // console.log(JSON.stringify($.get));
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
@@ -23,14 +25,8 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res, next) {
   // This route should send back the top 25 repos
-  db.getTop25((e,s) => {
-    if (e) {
-      console.log(e);
-    } else {
-      res.send(null,s);
-    }
-  next();
-  });
+  db.getTop25((e,s) => res.send(null, s))
+  next()
 });
 
 // app.get('/repos', function (req, res, next) {
@@ -41,12 +37,15 @@ app.get('/repos', function (req, res, next) {
 //   res.send(`req: ${JSON.stringify(req)}, res: ${JSON.stringify(res)}`);
 // });
 
-app.get('/most', function (req, res, next) {
-  fetch('https://api.github.com/search/repositories?q=javascript:language&sort=stars&order=desc')
-   .then((e,s) => console.log(e,s))
-  next();
-})
-// https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
+// app.get('/most', function (req, res, next) {
+//   fetch('https://api.github.com/search/repositories?q=javascript:language&sort=stars&order=desc').then((result) => console.log(result))
+//   // .catch(err => console.log("error"))
+// })
+
+// app.get('/most', function (req, res, next) {
+//   console.log(JSON.stringify($));
+//   // $.get('https://api.github.com/search/repositories?q=javascript:language&sort=stars&order=desc', (e,s) => console.log(e,s))
+// })
 
 let port = 1128;
 
