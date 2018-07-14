@@ -30,4 +30,6 @@ module.exports.getReposByUsername = getReposByUsername;
 
 // curl https://api.github.com/search/repositories?q=stars:>70000&order=desc
 
-// getReposByUsername('leerssej');
+// getReposByUsername('leerssej')
+
+exports.getReposByUsername = getReposByUsername;
