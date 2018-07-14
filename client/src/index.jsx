@@ -14,10 +14,9 @@ class App extends React.Component {
 
   search(term) {
     console.log(`${term} was entered`);
-    axios.post('./repos', {term})
-      .then(results => this.setState({
-        repos: results.data }))
-      .catch(err => console.log('error fetching repos for this name'));
+    axios.post('/repos', {term})
+      .then(response => console.log("Response: ", response))
+      .catch(error => console.log("Error: ", error))
   }
 
   componentDidMount() {
