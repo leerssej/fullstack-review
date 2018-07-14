@@ -17,50 +17,6 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-// // This function should save a repo or repos to the MongoDB
-// let save = (err, newRecord) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(`Record Saved: ${newRecord}`)
-//   }
-// }
-
-// let newRecord = new Repo({
-  //   id: 345,
-  //   name: "testName",
-  //   full_name: "testFN",
-  //   owner_login: "testOLogin",
-  //   owner_html_url: "testHtml",
-  //   owner_avatar_url: "testAvatar",
-  //   stargazers_count:  47,
-//   watchers_count: 124,
-//   forks_count:  256,
-// })
-
-// let newRecord = new Repo({
-//   id: record.id,
-//   name: record.name,
-//   full_name: record.full,
-//   owner_login: record.owner.login,
-//   owner_html_url: record.owner.html_url,
-//   owner_avatar_url: record.owner.avatar_url,
-//   stargazers_count: record.stargazers_count,
-//   watchers_count: record.watchers_count,
-//   forks_count: record.forks_count,
-// });
-
-// // simple test
-// newRecord.save((err, newRecord) => {
-  //   if (err) {
-    //     console.log(err);
-    //   } else {
-      //     console.log(newRecord);
-      //   }
-// });
-
-// let record = example_data[1];
-
 let newRecordSet = example_data;
 
 const saveRecords = (newRecordSet) => {
