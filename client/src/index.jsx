@@ -16,11 +16,11 @@ class App extends React.Component {
     console.log(`${term} was entered`);
     axios.post('/repos', {term})
       .then(response => console.log("Response: ", response))
-      .catch(error => console.log("Error: ", error))
+      // .catch(error => console.log("Error: ", error))
   }
 
   componentDidMount() {
-    this.state.repos = this.search()
+    // this.state.repos = this.search()
   }
 
   render () {

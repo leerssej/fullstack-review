@@ -19,19 +19,19 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
-  console.log(req.body.term, ghq, db);
+  console.log(req.body.term);
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
   ghq.getReposByUsername(req.body.term, (errApiCall, freshData) => {
-    db.saveRecords(freshData, (errStorage, storedData) => {
+  //   // db.saveRecords(freshData, (errStorage, storedData) => {
       if (errStorage) {
-        console.log("error in storage");
+        console.log("error in calling data");
       } else {
-        res.send(StoredData);
+        console.log(freshData);
       }
     })
-  })
+  // })
 });
 
 app.get('/repos', function (req, res, next) {

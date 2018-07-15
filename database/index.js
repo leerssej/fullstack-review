@@ -38,7 +38,7 @@ const saveRecords = (newRecordSet, callback) => {
         console.log(err);
       } else {
         console.log(`Record Saved: ${newRecord}`)
-        callback(newRecord);
+        // callback(newRecord);
       }
     });
   });
