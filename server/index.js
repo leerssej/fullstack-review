@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 let results = [];
 
 app.post('/repos', function (req, res) {
-  console.log(req.body.term);
+  // console.log(req.body.term);
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
@@ -30,7 +30,8 @@ app.post('/repos', function (req, res) {
     if (errApiCall) {
       console.log("error in calling data");
     } else {
-      db.saveRecords(freshData.body)
+      db.saveRecords(JSON.parse(freshData.body));
+      res.send(freshData.body).data;
     }
   })
 });
