@@ -48,6 +48,14 @@ const saveRecords = (newRecordSet, callback) => {
 }
 // saveRecords(example_data);
 
+const getRequested25 = (callback) => {
+  Repo
+    .find({})
+    .limit(25)
+    .sort({stargazers_count: -1})
+    .exec(callback)
+}
+
 const getTop25 = (callback) => {
   Repo
     .find({})

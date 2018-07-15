@@ -15,12 +15,15 @@ class App extends React.Component {
   search(term) {
     console.log(`${term} was entered`);
     axios.post('/repos', {term})
-      .then(response => console.log("Response: ", response))
-      // .catch(error => console.log("Error: ", error))
-  }
-
-  componentDidMount() {
-    // this.state.repos = this.search()
+      .then(response => this.setState( { repos: response.data } ))
+      .catch(error => console.log("Error: ", error))
+    }
+    
+    componentDidMount() {
+      axios.get('/repos')
+      .then(response => this.setState( { repos: response.data } ))
+      .catch(error => console.log("Error: ", error))
+    // this.state.repos = this.search('leerssej')
   }
 
   render () {
