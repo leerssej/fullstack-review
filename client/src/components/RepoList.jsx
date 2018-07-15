@@ -8,10 +8,11 @@ const RepoList = (props) => {
       {repo.name}
       </a>
       <img 
-        src={repo.owner_avatar_url} 
+        src={repo.owner_avatar_url || repo.owner.avatar_url} 
         alt={repo.owner_login}
         width='20'
       />
+      {repo.stargazers_count}
     </li>
   );
   return (
