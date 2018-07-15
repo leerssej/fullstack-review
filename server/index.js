@@ -24,11 +24,17 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
   ghq.getReposByUsername(req.body.term, (errApiCall, freshData) => {
-  //   // db.saveRecords(freshData, (errStorage, storedData) => {
-      if (errStorage) {
+  // //   // db.saveRecords(freshData, (errStorage, storedData) => {
+      if (errApiCall) {
         console.log("error in calling data");
       } else {
-        console.log(freshData);
+        db.saveRecords(freshData, (errStorage, storedData) => {
+          if (errStorage) {
+            console.log("error in storing data");
+          } else {
+            console.log(storedData);
+          }
+        });
       }
     })
   // })

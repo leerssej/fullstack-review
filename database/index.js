@@ -43,7 +43,7 @@ const saveRecords = (newRecordSet, callback) => {
     });
   });
 }
-// saveRecords(example_data);
+saveRecords(example_data);
 
 const getTop25 = (callback) => {
   Repo
