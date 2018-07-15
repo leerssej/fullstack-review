@@ -18,6 +18,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 // install body parser
 app.use(bodyParser.json());
 
+let results = [];
+
 app.post('/repos', function (req, res) {
   console.log(req.body.term);
   // This route should take the github username provided
@@ -25,19 +27,12 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   ghq.getReposByUsername(req.body.term, (errApiCall, freshData) => {
   // //   // db.saveRecords(freshData, (errStorage, storedData) => {
-      if (errApiCall) {
-        console.log("error in calling data");
-      } else {
-        db.saveRecords(freshData, (errStorage, storedData) => {
-          if (errStorage) {
-            console.log("error in storing data");
-          } else {
-            console.log(storedData);
-          }
-        });
-      }
-    })
-  // })
+    if (errApiCall) {
+      console.log("error in calling data");
+    } else {
+      db.saveRecords(freshData.body)
+    }
+  })
 });
 
 app.get('/repos', function (req, res, next) {

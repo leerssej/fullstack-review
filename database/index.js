@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
-  id: { type: Number, index: true, unique: true },
+  // id: { type: Number, index: true, unique: true },
+  id: Number,
   name: String,
   full_name: String,
   owner_login: String,
@@ -20,30 +21,32 @@ let Repo = mongoose.model('Repo', repoSchema);
 let newRecordSet = example_data;
 
 const saveRecords = (newRecordSet, callback) => {
-  newRecordSet.forEach(record => {
-    let newRecord = new Repo({
-      id: record.id,
-      name: record.name,
-      full_name: record.full,
-      owner_login: record.owner.login,
-      owner_html_url: record.owner.html_url,
-      owner_avatar_url: record.owner.avatar_url,
-      stargazers_count: record.stargazers_count,
-      watchers_count: record.watchers_count,
-      forks_count: record.forks_count,
+  if(!newRecordSet.message) {
+    newRecordSet.forEach(record => {
+      let newRecord = new Repo({
+        id: record.id,
+        name: record.name,
+        full_name: record.full,
+        owner_login: record.owner.login,
+        owner_html_url: record.owner.html_url,
+        owner_avatar_url: record.owner.avatar_url,
+        stargazers_count: record.stargazers_count,
+        watchers_count: record.watchers_count,
+        forks_count: record.forks_count,
+      });
+      
+      newRecord.save((err, newRecord) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`Record Saved: ${newRecord}`)
+          // callback(newRecord);
+        }
+      });
     });
-    
-    newRecord.save((err, newRecord) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(`Record Saved: ${newRecord}`)
-        // callback(newRecord);
-      }
-    });
-  });
+  }
 }
-saveRecords(example_data);
+// saveRecords(example_data);
 
 const getTop25 = (callback) => {
   Repo
