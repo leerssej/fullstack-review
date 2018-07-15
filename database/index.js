@@ -19,7 +19,7 @@ let Repo = mongoose.model('Repo', repoSchema);
 
 let newRecordSet = example_data;
 
-const saveRecords = (newRecordSet) => {
+const saveRecords = (newRecordSet, callback) => {
   newRecordSet.forEach(record => {
     let newRecord = new Repo({
       id: record.id,
@@ -37,7 +37,8 @@ const saveRecords = (newRecordSet) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(`Record Saved: ${newRecord}`) 
+        console.log(`Record Saved: ${newRecord}`)
+        callback(newRecord);
       }
     });
   });
@@ -51,6 +52,7 @@ const getTop25 = (callback) => {
     .sort({stargazers_count: -1})
     .exec(callback)
 }
+
 // console.log(getTop25());
 module.exports = {
   saveRecords,

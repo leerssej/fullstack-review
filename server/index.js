@@ -19,18 +19,24 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
-  console.log(req.body.term, ghq);
+  console.log(req.body.term, ghq, db);
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  ghq.getReposByUsername(req.body.term, ()
-    (e, b) => res.send(b));
+  ghq.getReposByUsername(req.body.term, (errApiCall, freshData) => {
+    db.saveRecords(freshData, (errStorage, storedData) => {
+      if (errStorage) {
+        console.log("error in storage");
+      } else {
+        res.send(StoredData);
+      }
+    })
+  })
 });
 
 app.get('/repos', function (req, res, next) {
   // This route should send back the top 25 repos
-  db.getTop25((e,s) => res.send(null, s))
-  next()
+  db.getTop25((e,s) => res.send(s))
 });
 
 // app.get('/repos', function (req, res, next) {
